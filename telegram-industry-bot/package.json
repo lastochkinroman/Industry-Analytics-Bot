@@ -1,0 +1,35 @@
+{
+  "name": "telegram-industry-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot for industry analytics with AI integration",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "docker:build": "docker-compose build",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "analytics",
+    "ai",
+    "gigachat",
+    "postgresql"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "telegraf": "^4.16.3",
+    "dotenv": "^16.3.1",
+    "langchain-gigachat": "^0.0.4",
+    "@langchain/core": "^0.1.0",
+    "pg": "^8.11.3",
+    "sequelize": "^6.35.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

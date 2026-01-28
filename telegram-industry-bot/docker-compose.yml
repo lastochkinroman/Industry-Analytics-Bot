@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    container_name: industry_bot
+    restart: unless-stopped
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    networks:
+      - industry_network
+    volumes:
+      - ./src:/app/src
+    command: node src/index.js
+
+  db:
+    image: postgres:15-alpine
+    container_name: industry_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - industry_network
+    ports:
+      - "5432:5432"
+
+networks:
+  industry_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
